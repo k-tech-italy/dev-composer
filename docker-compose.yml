@@ -2,8 +2,8 @@ version: '3'
 # to activate : docker-compose up -d
 services:
 
-  pg10:
-    image: postgres:10
+  postgres:
+    image: postgres:${PG_VERSION}
     ports:
       - "5432:5432"
     volumes:
@@ -23,7 +23,7 @@ services:
         START_FLOWER: 0
         SENTRY_SECRET_KEY: ${SENTRY_SECRET_KEY}
         SENTRY_REDIS_HOST: redis
-        SENTRY_POSTGRES_HOST: pg10
+        SENTRY_POSTGRES_HOST: postgres
         SENTRY_EMAIL_USER: ${SENTRY_EMAIL_USER}
         SENTRY_EMAIL_USE_TLS: 1
         SENTRY_EMAIL_PORT: 587
