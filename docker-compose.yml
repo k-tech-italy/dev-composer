@@ -5,7 +5,7 @@ services:
   postgres:
     image: postgres:${PG_VERSION}
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT}:5432"
     volumes:
       - "${PG_DATA_DIR}:/var/lib/postgresql/data"
     environment:
@@ -42,7 +42,7 @@ services:
   redis:
       image: "redis:alpine"
       ports:
-        - "6379:6379"
+        - "${REDIS_PORT}:6379"
 
   sqs:
       image: "roribio16/alpine-sqs:latest"
@@ -60,3 +60,12 @@ services:
       MINIO_ACCESS_KEY: minioadmin
       MINIO_SECRET_KEY: minioadmin
     command: server --console-address :9001 /data{1...4}
+
+  devpi:
+    image: saxix/devpi
+    environment:
+      DEVPI_PASSWORD: ${DEVPI_ROOT_PWD}
+    ports:
+      - "3141:3141"
+    volumes:
+      - "${DEVPI_DATA_DIR}:/mnt"
