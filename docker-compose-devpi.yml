@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+
+  devpi:
+    image: saxix/devpi
+    environment:
+      DEVPI_PASSWORD: ${DEVPI_ROOT_PWD}
+    ports:
+      - "3141:3141"
+    volumes:
+      - "${DEVPI_DATA_DIR}:/mnt"

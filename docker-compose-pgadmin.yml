@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+
+  pgadmin:
+    image: dpage/pgadmin4:5.7
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    environment:
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-admin}
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-admin@example.org}
+    volumes: 
+      - ${PGADMIN_ROOT_DIR}/lib:/var/lib/pgadmin
+      - ${PGADMIN_ROOT_DIR}/certs/pgadmin.cert:/certs/server.cert
+      - ${PGADMIN_ROOT_DIR}/certs/pgadmin.key:/certs/server.key
+      - ${PGADMIN_ROOT_DIR}/pgadmin/servers.json:/pgadmin4/servers.json
