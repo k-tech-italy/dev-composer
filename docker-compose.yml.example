@@ -3,7 +3,7 @@ version: '3'
 services:
 
   postgres:
-    image: postgres:${PG_VERSION}
+    image: postgres:${PG_VERSION:-latest}
     ports:
       - "${POSTGRES_PORT}:5432"
     volumes:
@@ -112,4 +112,13 @@ services:
       - ${PGADMIN_ROOT_DIR}/lib:/var/lib/pgadmin
       - ${PGADMIN_ROOT_DIR}/certs/pgadmin.cert:/certs/server.cert
       - ${PGADMIN_ROOT_DIR}/certs/pgadmin.key:/certs/server.key
-      - ${PGADMIN_ROOT_DIR}/pgadmin/servers.json:/pgadmin4/servers.json
+        - ${PGADMIN_ROOT_DIR}/pgadmin/servers.json:/pgadmin4/servers.json
+
+  mysql:
+    image: postgres:${MYSQL_VERSION:-latest}
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    volumes:
+      - "${MYSQL_DATA_DIR}:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD:-admin}
