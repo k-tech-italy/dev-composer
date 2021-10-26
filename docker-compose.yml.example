@@ -115,7 +115,7 @@ services:
         - ${PGADMIN_ROOT_DIR}/pgadmin/servers.json:/pgadmin4/servers.json
 
   mysql:
-    image: postgres:${MYSQL_VERSION:-latest}
+    image: mysql:${MYSQL_VERSION:-latest}
     ports:
       - "${MYSQL_PORT:-3306}:3306"
     volumes:

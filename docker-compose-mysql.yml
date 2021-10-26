@@ -2,7 +2,7 @@ version: '3'
 
 services:
   mysql:
-    image: postgres:${MYSQL_VERSION:-latest}
+    image: mysql:${MYSQL_VERSION:-latest}
     ports:
       - "${MYSQL_PORT:-3306}:3306"
     volumes:
