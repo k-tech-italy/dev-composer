@@ -1,22 +1,12 @@
 version: '3'
 # to activate : docker-compose up -d
 services:
-
-  postgres:
-    image: postgres:${PG_VERSION}
-    ports:
-      - "${POSTGRES_PORT}:5432"
-    volumes:
-      - "${PG_DATA_DIR}:/var/lib/postgresql/data"
-    environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-
   sentry:
     image: saxix/sentry:9.1.2-5
     ports:
-      - "9000:9000"
-      - "8888:8888"
-      - "15000:15000"
+      - "${SENTRY_PORT:-9000}:9000"
+      - "${SENTRY_PORT_8888:-8888}:15000"
+      - "${SENTRY_PORT_15000:-15000}:8888"
     environment:
         SUPERVISOR_USER: superadmin
         SUPERVISOR_PWD: superadmin
@@ -40,73 +30,4 @@ services:
         SENTRY_URL_PREFIX: http://localhost:9000
     depends_on:
       - postgres
-        
-  redis:
-      image: "redis:alpine"
-      ports:
-        - "${REDIS_PORT}:6379"
-
-  sqs:
-      image: "roribio16/alpine-sqs:latest"
-      ports:
-        - 9324:9324
-        - 9325:9325
-
-  minio:
-    image: minio/minio:latest
-    # image: docker.singlewave.co.uk/minio-dev:latest
-    ports:
-      - "19000:9000"
-      - "19001:9001"
-    environment:
-      MINIO_ACCESS_KEY: minioadmin
-      MINIO_SECRET_KEY: minioadmin
-    command: server --console-address :9001 /data{1...4}
-
-  devpi:
-    image: saxix/devpi
-    environment:
-      DEVPI_PASSWORD: ${DEVPI_ROOT_PWD}
-    ports:
-      - "3141:3141"
-    volumes:
-      - "${DEVPI_DATA_DIR}:/mnt"
-
-  selenium-hub:
-    image: selenium/hub
-    ports:
-      - "4444:4444"
-    environment:
-        GRID_MAX_SESSION: 16
-        GRID_BROWSER_TIMEOUT: 300
-        GRID_TIMEOUT: 300
-
-  chrome:
-    image: selenium/node-chrome
-    depends_on:
-      - selenium-hub
-    environment:
-      HUB_PORT_4444_TCP_ADDR: selenium-hub
-      HUB_PORT_4444_TCP_PORT: 4444
-      NODE_MAX_SESSION: 2
-      NODE_MAX_INSTANCES: 2
-
-  firefox:
-    image: selenium/node-firefox
-    depends_on:
-      - selenium-hub
-    environment:
-      HUB_PORT_4444_TCP_ADDR: selenium-hub
-      HUB_PORT_4444_TCP_PORT: 4444
-      NODE_MAX_SESSION: 4
-      NODE_MAX_INSTANCES: 4
-
-  # pgadmin:
-  #   image: dpage/pgadmin4
-  #   environment:
-  #     PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
-  #   volumes: 
-  #     -v /private/var/lib/pgadmin:/var/lib/pgadmin \
-  #     -v /path/to/certificate.cert:/certs/server.cert \
-  #     -v /path/to/certificate.key:/certs/server.key \
-  #     -v /tmp/servers.json:/pgadmin4/servers.json \
+      - redis
