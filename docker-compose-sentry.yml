@@ -1,5 +1,5 @@
 version: '3'
-# to activate : docker-compose up -d
+
 services:
   sentry:
     image: saxix/sentry:9.1.2-5
