@@ -12,3 +12,5 @@ services:
       MINIO_ACCESS_KEY: minioadmin
       MINIO_SECRET_KEY: minioadmin
     command: server --console-address ":9001" /data{1...4}
+    volumes:
+      - ${MINIO_DATA_DIR}:/data
