@@ -108,6 +108,8 @@ services:
     image: dpage/pgadmin4:5.7
     ports:
       - "${PGADMIN_PORT:-5050}:80"
+    depends_on:
+      - postgres
     environment:
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-admin}
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-admin@example.org}
@@ -116,3 +118,9 @@ services:
       - ${PGADMIN_ROOT_DIR}/certs/pgadmin.cert:/certs/server.cert
       - ${PGADMIN_ROOT_DIR}/certs/pgadmin.key:/certs/server.key
       - ${PGADMIN_ROOT_DIR}/pgadmin/servers.json:/pgadmin4/servers.json
+
+  memcached:
+    image: memcached:${MEMCACHED_VERSION:-1.6-alpine}
+    ports:
+      - "${MEMCACHED_PORT:-11211}:11211"
+    command: memcached -m ${MEMCACHED_SIZE:-128}

@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+
+  memcached:
+    image: memcached:${MEMCACHED_VERSION:-1.6-alpine}
+    ports:
+      - "${MEMCACHED_PORT:-11211}:11211"
+    command: memcached -m ${MEMCACHED_SIZE:-128}
