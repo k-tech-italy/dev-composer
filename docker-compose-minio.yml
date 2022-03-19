@@ -1,4 +1,4 @@
-version: '3'
+version: '3.1'
 
 services:
 
@@ -11,6 +11,6 @@ services:
     environment:
       MINIO_ACCESS_KEY: minioadmin
       MINIO_SECRET_KEY: minioadmin
-    command: server --console-address ":9001" /data{1...4}
+    command: server --console-address ":9001" /data
     volumes:
       - ${MINIO_DATA_DIR}:/data

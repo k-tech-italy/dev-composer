@@ -1,0 +1,6 @@
+version: '3.1'
+
+networks: 
+  default:
+    name: ${BRIDGE_NETWORK_NAME:-shared-network}
+    external: true
