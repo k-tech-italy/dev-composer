@@ -1,3 +1,4 @@
 .*
 !.gitignore
 !*.example
+docker-compose-local.yml
