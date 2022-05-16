@@ -5,13 +5,14 @@ services:
   pgadmin:
     image: dpage/pgadmin4:6.3
     ports:
-      - "${PGADMIN_PORT:-5050}:80"
+      - "${PGADMIN_LISTEN_PORT}:${PGADMIN_LISTEN_PORT}"
     depends_on:
       - postgres
     environment:
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-admin}
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-admin@example.org}
-    volumes: 
+      - PGADMIN_LISTEN_PORT=${PGADMIN_LISTEN_PORT:-80}
+    volumes:
       - ${PGADMIN_ROOT_DIR}/lib:/var/lib/pgadmin
       - ${PGADMIN_ROOT_DIR}/certs/pgadmin.cert:/certs/server.cert
       - ${PGADMIN_ROOT_DIR}/certs/pgadmin.key:/certs/server.key
