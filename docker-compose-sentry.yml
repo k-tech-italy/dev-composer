@@ -5,8 +5,8 @@ services:
     image: saxix/sentry:9.1.2-5
     ports:
       - "${SENTRY_PORT:-9000}:9000"
-      - "${SENTRY_PORT_8888:-8888}:15000"
-      - "${SENTRY_PORT_15000:-15000}:8888"
+      - "${SENTRY_PORT_8888:-8888}:8888"
+      - "${SENTRY_PORT_15000:-15000}:15000"
     environment:
         SUPERVISOR_USER: superadmin
         SUPERVISOR_PWD: superadmin
