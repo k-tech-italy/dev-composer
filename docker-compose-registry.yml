@@ -1,3 +1,7 @@
+# This will create a local insecure (http) registry
+# Remember to add "insecure-registries" : ["localhost:5001"] to the docker engine configuration
+# where 5001 is your REGISTRY_PORT
+
 version: '3.1'
 
 services:
@@ -6,5 +10,25 @@ services:
     image: registry:2
     ports:
       - "${REGISTRY_PORT:-5001}:5000"
+    networks:
+      - docker-registry-ui
     volumes:
       - ${REGISTRY_DATA_DIR}:/var/lib/registry
+      - ${REGISTRY_CONFIG:-./conf/registry/config.yml}:/etc/docker/registry/config.yml
+
+  ui:
+    image: joxit/docker-registry-ui:latest
+    ports:
+      - "${REGISTRY_UI_PORT:-5080}:80"
+    environment:
+      REGISTRY_TITLE: K-Tech Private Docker Registry
+      REGISTRY_URL: http://localhost:${REGISTRY_PORT:-5001}
+      SINGLE_REGISTRY: true
+      SHOW_CATALOG_NB_TAGS: true
+    networks:
+      - docker-registry-ui
+    depends_on:
+      - registry
+
+networks:
+  docker-registry-ui:
