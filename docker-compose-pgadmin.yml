@@ -3,7 +3,7 @@ version: '3.6'
 services:
 
   pgadmin:
-    image: dpage/pgadmin4:6.19
+    image: dpage/pgadmin4:${PGADMIN_VERSION:-6.19}
     ports:
       - "${PGADMIN_LISTEN_PORT:-8080}:80"
     depends_on:
