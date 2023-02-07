@@ -2,10 +2,10 @@ version: '3.6'
 
 services:
   postgres:
-    image: postgres:14
+    image: postgres:${PG_VERSION}
     ports:
-      - "5414:5432"
+      - "54${PG_VERSION}:5432"
     volumes:
-      - "/A/data/storage/pgdata14:/var/lib/postgresql/data"
+      - "${PG_ROOT_DATA_DIR}${PG_VERSION}:/var/lib/postgresql/data"
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
