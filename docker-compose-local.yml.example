@@ -1,0 +1,16 @@
+version: '3.6'
+
+services:
+  # Add your local services here.
+  # make sure to add "local" to the DEVC_SERVICES .env
+
+
+  # example for another DB
+  pg10:
+    image: postgres:10
+    ports:
+      - "5410:5432"
+    volumes:
+      - "/A/data/storage/pgdata10:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
