@@ -14,20 +14,20 @@ SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 export $(awk '$1 ~ /^[^;#]/' $SCRIPT_DIR/.env | grep DEVC_SERVICES | xargs)
 
-IFS=, read -r -a DEVC_SERVICES <<<"$DEVC_SERVICES"
+IFS=, read -r -a DEVC_SERVICES <<<"${DEVC_SERVICES}"
 
 SERVICES=""
 
 for service in "${DEVC_SERVICES[@]}"; do
-  SERVICES+="$SERVICE -f docker-compose-$service.yml";
+  SERVICES+="$SERVICE -f ${DOCKER_COMPOSE_CMD}-$service.yml";
 
 done
-SERVICES="docker-compose --project-directory $SCRIPT_DIR $SERVICES $*"
+SERVICES="${DOCKER_COMPOSE_CMD} --project-directory ${SCRIPT_DIR} ${SERVICES} $*"
 
 echo "Will run:"
-echo "  $SERVICES"
+echo "  ${SERVICES}"
 echo "from $SCRIPT_DIR"
 (
     cd $SCRIPT_DIR
-    `$SERVICES`
+    `${SERVICES}`
 )
