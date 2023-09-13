@@ -11,15 +11,19 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
+DOCKER_COMPOSE_CMD=$(grep "^DOCKER_COMPOSE_CMD"  ${SCRIPT_DIR}/.env | cut -d = -f 2)
 
-export $(awk '$1 ~ /^[^;#]/' $SCRIPT_DIR/.env | grep DEVC_SERVICES | xargs)
+echo "######## ${DOCKER_COMPOSE_CMD}"
+echo
+
+export $(awk '$1 ~ /^[^;#]/' ${SCRIPT_DIR}/.env | grep DEVC_SERVICES | xargs)
 
 IFS=, read -r -a DEVC_SERVICES <<<"${DEVC_SERVICES}"
 
 SERVICES=""
 
 for service in "${DEVC_SERVICES[@]}"; do
-  SERVICES+="$SERVICE -f ${DOCKER_COMPOSE_CMD}-$service.yml";
+  SERVICES+="$SERVICE -f docker-compose-$service.yml";
 
 done
 SERVICES="${DOCKER_COMPOSE_CMD} --project-directory ${SCRIPT_DIR} ${SERVICES} $*"
