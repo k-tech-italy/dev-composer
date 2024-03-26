@@ -3,6 +3,7 @@ version: '3.6'
 services:
   postgres:
     image: postgres:${PG_VERSION}
+    command: -c 'max_connections=${PG_MAX_CONNECTIONS:-100}'
     ports:
       - "54${PG_VERSION}:5432"
     volumes:
