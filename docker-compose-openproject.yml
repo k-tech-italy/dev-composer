@@ -1,0 +1,15 @@
+version: '3.6'
+
+services:
+  mysql:
+    image: openproject/openproject:15.0.1
+    ports:
+      - "8080:80"
+    volumes:
+      - "${MYSQL_DATA_DIR}:/var/lib/mysql"
+    environment:
+      OPENPROJECT_SECRET_KEY_BASE: ${OP_SECRET:-secret}
+      OPENPROJECT_HOST__NAME: ${OP_HOST:-localhost:8080}
+      OPENPROJECT_HTTPS: false
+      OPENPROJECT_DEFAULT__LANGUAGE: en
+      DATABASE_URL: "${OP_DB_URL:-postgres://openproject:openproject@postgres:5416/openproject"
