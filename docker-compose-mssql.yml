@@ -1,0 +1,20 @@
+version: '3.6'
+
+services:
+  sql-server:
+    container_name: sql-server
+    image: mcr.microsoft.com/mssql/server:${MSSQL_VERSION:-latest}
+    user: root
+    ports:
+      - "1433:1433"
+    volumes: 
+      - ../data/mssql:/var/opt/mssql - /var/opt/mssql/data
+    environment:
+      ACCEPT_EULA: ${MSSQL_ACCEPT_EULA:-Y}
+      MSSQL_PID: ${MSSQL_PID:-Developer}
+      MSSQL_SA_PASSWORD: ${MSSQL_PASSWORD:-Password4ever}
+      MSSQL.master.datafile: /var/opt/mssql/data/master.mdf
+      MSSQL.master.logfile: /var/opt/mssql/data/mastlog.ldf
+      MSSQL_BACKUP_DIR: /var/opt/mssql/backup
+
+
