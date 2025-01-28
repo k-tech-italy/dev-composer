@@ -1,14 +1,14 @@
-version: '3.6'
-
 services:
   sql-server:
-    container_name: sql-server
     image: mcr.microsoft.com/mssql/server:${MSSQL_VERSION:-latest}
     user: root
     ports:
-      - "1433:1433"
+      - "${MSSQL_PORT:-1433}:1433"
     volumes: 
-      - ../data/mssql:/var/opt/mssql - /var/opt/mssql/data
+      - "${MSSQL_DATA_DIR}/data:/var/opt/mssql/data"
+      - "${MSSQL_DATA_DIR}/log:/var/opt/mssql/log"
+      - "${MSSQL_DATA_DIR}/secrets:/var/opt/mssql/secrets"
+      - "${MSSQL_DATA_DIR}/scripts:/scripts"
     environment:
       ACCEPT_EULA: ${MSSQL_ACCEPT_EULA:-Y}
       MSSQL_PID: ${MSSQL_PID:-Developer}
