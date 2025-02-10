@@ -2,8 +2,6 @@
 # Remember to add "insecure-registries" : ["localhost:5001"] to the docker engine configuration
 # where 5001 is your REGISTRY_PORT
 
-version: '3.6'
-
 services:
 
   registry:

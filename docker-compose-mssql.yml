@@ -16,5 +16,3 @@ services:
       MSSQL.master.datafile: /var/opt/mssql/data/master.mdf
       MSSQL.master.logfile: /var/opt/mssql/data/mastlog.ldf
       MSSQL_BACKUP_DIR: /var/opt/mssql/backup
-
-

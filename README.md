@@ -22,6 +22,7 @@ Edit the .env files and set the following variables:
 ### Deploy components
 * Configure .env
 * Create .envrc from .envrc.example
+* ln -s <path>/dc.sh $HOME  #(Hint link it in your home)
 * Launch dc.sh
 
 

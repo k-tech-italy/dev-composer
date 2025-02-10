@@ -1,5 +1,3 @@
-version: '3.6'
-
 services:
   # Add your local services here.
   # make sure to add "local" to the DEVC_SERVICES .env
