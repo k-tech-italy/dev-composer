@@ -10,9 +10,9 @@ services:
       - "${MSSQL_DATA_DIR}/secrets:/var/opt/mssql/secrets"
       - "${MSSQL_DATA_DIR}/scripts:/scripts"
     environment:
-      ACCEPT_EULA: ${MSSQL_ACCEPT_EULA:-Y}
+      ACCEPT_EULA: Y
       MSSQL_PID: ${MSSQL_PID:-Developer}
-      MSSQL_SA_PASSWORD: ${MSSQL_PASSWORD:-Password4ever}
+      MSSQL_SA_PASSWORD: ${MSSQL_PASSWORD}
       MSSQL.master.datafile: /var/opt/mssql/data/master.mdf
       MSSQL.master.logfile: /var/opt/mssql/data/mastlog.ldf
       MSSQL_BACKUP_DIR: /var/opt/mssql/backup
