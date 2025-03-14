@@ -1,4 +1,5 @@
 # see https://github.com/getredash/redash.git
+# NB Run `make redash-create-db` to apply migrations
 
 x-redash-service: &redash-service
   image: redash/redash:25.1.0
@@ -11,7 +12,7 @@ x-redash-environment: &redash-environment
   REDASH_HOST: http://localhost:${REDASH_PORT:-5000}
   REDASH_LOG_LEVEL: "INFO"
   REDASH_REDIS_URL: "redis://redis:6379/0"
-  REDASH_DATABASE_URL: "postgresql://postgres:${POSTGRES_PASSWORD}@postgres/redash"
+  REDASH_DATABASE_URL: ${REDASH_DATABASE_URL}
   REDASH_RATELIMIT_ENABLED: "false"
   REDASH_MAIL_DEFAULT_SENDER: "redash@example.com"
   REDASH_MAIL_SERVER: mailhog
