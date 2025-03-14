@@ -1,5 +1,7 @@
 # see https://github.com/getredash/redash.git
 # NB Run `make redash-create-db` to apply migrations
+# https://redash.io/help/open-source/admin-guide/env-vars-settings/
+# For keyclaok SAML https://www.linkedin.com/pulse/redash-login-via-keycloak-saml-vincent-hindriksen/
 
 x-redash-service: &redash-service
   image: redash/redash:25.1.0
@@ -17,11 +19,12 @@ x-redash-environment: &redash-environment
   REDASH_MAIL_DEFAULT_SENDER: "redash@example.com"
   REDASH_MAIL_SERVER: mailhog
   REDASH_MAIL_PORT: 1025
-  REDASH_ENFORCE_CSRF: "true"
+  # set to false to prevent "failed CSRF validation in SAML callback"
+  REDASH_ENFORCE_CSRF: "false"
   REDASH_GUNICORN_TIMEOUT: 60
   REDASH_SECRET_KEY: ${REDASH_SECRET_KEY}
   REDASH_COOKIE_SECRET: ${REDASH_COOKIE_SECRET}
-  GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+  # GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
 
 services:
   redash-server:
