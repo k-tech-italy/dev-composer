@@ -4,3 +4,7 @@ services:
     ports:
       - "1025:1025"
       - "8025:8025"
+    # environment:
+    #   - MH_AUTH_FILE=/home/mailhog/mailhog-auth
+    # volumes:
+    #   - "${MAILHOG_ROOT_DATA_DIR}/conf:/home/mailhog"
