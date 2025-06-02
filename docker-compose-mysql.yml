@@ -1,10 +1,10 @@
 services:
   mysql:
     image: mysql:${MYSQL_VERSION:-latest}
+    restart: unless-stopped
     ports:
       - "${MYSQL_PORT:-3306}:3306"
     volumes:
       - "${MYSQL_DATA_DIR}:/var/lib/mysql"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD:-admin}
-    
