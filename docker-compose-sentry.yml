@@ -5,6 +5,7 @@ services:
       - "${SENTRY_PORT:-9000}:9000"
       - "${SENTRY_PORT_8888:-8888}:8888"
       - "${SENTRY_PORT_15000:-15000}:15000"
+    platform: linux/amd64
     environment:
         SUPERVISOR_USER: superadmin
         SUPERVISOR_PWD: superadmin
