@@ -1,0 +1,11 @@
+# Postgres Vector DB https://hub.docker.com/r/tensorchord/pgvecto-rs
+services:
+  pgv:
+    image: tensorchord/pgvecto-rs:${PGV_IMAGE}
+    command: -c 'max_connections=${PG_MAX_CONNECTIONS:-100}'
+    ports:
+      - "55${PGV_VERSION}:5432"
+    volumes:
+      - "${PGV_ROOT_DATA_DIR}${PG_VERSION}:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

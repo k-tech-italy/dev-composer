@@ -1,4 +1,7 @@
 .*
+*.pem
+
 !.gitignore
 !*.example
 docker-compose-local.yml
+mounts/*
