@@ -1,0 +1,16 @@
+# Postgres Vector DB https://hub.docker.com/r/pgvector/pgvector/tags?name=18
+services:
+  pgvector:
+    build:
+      context: ./postgres-pgvector-anon
+      args:
+        PG_VECTOR_ANON_IMAGE: ${PG_VECTOR_ANON_IMAGE}
+        PG_ANON_VERSION: ${PG_ANON_VERSION}
+    image: k-tech.it/pgvector-anon
+    command: -c 'max_connections=${PG_MAX_CONNECTIONS:-100}'
+    ports:
+      - "56${PG_ANON_PORT}:5432"
+    volumes:
+      - "${PG_VECTOR_ANON_ROOT_DATA_DIR}${PG_VERSION}:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
