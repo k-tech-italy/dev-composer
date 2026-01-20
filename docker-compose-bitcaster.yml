@@ -1,0 +1,49 @@
+x-bitcaster: &bitcaster
+  image: os4d/bitcaster:latest
+  platform: linux/amd64
+  environment:
+    - ADMIN_EMAIL=${BITCASTER_ADMIN_EMAIL}
+    - ADMIN_PASSWORD=${BITCASTER_ADMIN_PASSWORD}
+    - ALLOWED_HOSTS=app,localhost,127.0.0.1
+    - CACHE_URL=redis://${BITCASTER_REDIS_HOST:-redis}:${BITCASTER_REDIS_PORT:-6379}/1?client_class=django_redis.client.DefaultClient
+    - DRAMATIQ_BROKER=redis://${BITCASTER_REDIS_HOST:-redis}:${BITCASTER_REDIS_PORT:-6379}/2
+    - CSRF_COOKIE_SECURE=False
+    - CSRF_TRUSTED_ORIGINS=http://localhost,https://localhost:1443
+    - DATABASE_URL=postgres://${BITCASTER_DATABASE_USER:-postgres}:${BITCASTER_DATABASE_PASSWORD:-$POSTGRES_PASSWORD}@${BITCASTER_DATABASE_HOST:-postgres}:${BITCASTER_DATABASE_PORT:-5432}/${BITCASTER_DATABASE_NAME:-bitcaster}
+    - MEDIA_ROOT=/var/storage/media/
+    - SECRET_KEY=${BITCASTER_SECRET_KEY}
+    - SECURE_HSTS_PRELOAD=0
+    - SECURE_SSL_REDIRECT=False
+    - SESSION_COOKIE_DOMAIN=
+    - SESSION_COOKIE_SECURE=False
+    - SOCIAL_AUTH_REDIRECT_IS_HTTPS=False
+    - STATIC_ROOT=/var/storage/static/
+    - STATIC_URL=/static/
+  volumes:
+    - "${BITCASTER_ROOT_DATA_DIR}:/var/storage"
+  restart: unless-stopped
+  depends_on:
+    - postgres
+    - redis
+
+
+services:
+
+  bitcaster:
+    <<: *bitcaster
+    ports:
+      - ${BITCASTER_PORT:-8000}:8000
+    healthcheck:
+      test: curl --fail http://127.0.0.1:8000/healthcheck/ || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+    depends_on:
+      - postgres
+
+  bitcaster-worker:
+    <<: *bitcaster
+    command: ["worker"]
+    depends_on:
+      - postgres
