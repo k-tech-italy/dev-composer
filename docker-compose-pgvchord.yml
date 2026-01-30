@@ -1,0 +1,10 @@
+# Postgres Vector DB https://docs.vectorchord.ai/vectorchord/getting-started/installation.html
+services:
+  pgvchord:
+    image: ${PG_VCHORD_IMAGE}
+    ports:
+      - "${PG_VCHORD_PORT:-5488}:5432"
+    volumes:
+      - "${PG_VCHORD_ROOT_DATA_DIR}:/var/lib/postgresql/18/docker"
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
