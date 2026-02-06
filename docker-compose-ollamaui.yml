@@ -1,0 +1,13 @@
+# Postgres Vector DB https://docs.vectorchord.ai/vectorchord/getting-started/installation.html
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    ports:
+      - "${OLLAMAUI_PORT:-3000}:8080"
+    environment:
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL}
+    volumes:
+      - ${OLLAMAUI_ROOT_DIR}:/app/backend/data
+#    depends_on:
+#      - ollama
