@@ -1,7 +1,7 @@
 # Ollamaui with ollama installed on host
 services:
-  open-webui-cuda:
-    image: ghcr.io/open-webui/open-webui:main
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:cuda
     container_name: open-webui
     ports:
       - "${OLLAMAUI_PORT:-3000}:8080"
@@ -11,3 +11,10 @@ services:
       - "host.docker.internal:host-gateway"
     volumes:
       - ${OLLAMAUI_ROOT_DIR}:/app/backend/data
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
