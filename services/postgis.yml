@@ -1,0 +1,10 @@
+services:
+  postgis:
+    image: postgis/postgis:${PGIS_VERSION}
+    command: -c 'max_connections=${PGIS_MAX_CONNECTIONS:-100}'
+    ports:
+      - "${PGIS_PORT}:5432"
+    volumes:
+      - "${PGIS_ROOT_DATA_DIR}${PGIS_VERSION}:/var/lib/postgresql"
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

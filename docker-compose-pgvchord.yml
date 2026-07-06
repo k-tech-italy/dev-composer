@@ -8,3 +8,4 @@ services:
       - "${PG_VCHORD_ROOT_DATA_DIR}:/var/lib/postgresql/18/docker"
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_INITDB_ARGS: '--data-checksums'

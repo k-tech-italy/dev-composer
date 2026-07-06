@@ -13,22 +13,25 @@ SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 DOCKER_COMPOSE_CMD=$(grep "^DOCKER_COMPOSE_CMD"  ${SCRIPT_DIR}/.env | cut -d = -f 2)
 
-export $(awk '$1 ~ /^[^;#]/' ${SCRIPT_DIR}/.env | grep DEVC_SERVICES | xargs)
 
-IFS=, read -r -a DEVC_SERVICES <<<"${DEVC_SERVICES}"
+# export $(awk '$1 ~ /^[^;#]/' ${SCRIPT_DIR}/.env | grep DEVC_SERVICES | xargs)
 
-SERVICES=""
+# IFS=, read -r -a DEVC_SERVICES <<<"${DEVC_SERVICES}"
 
-for service in "${DEVC_SERVICES[@]}"; do
-  SERVICES+="$SERVICE -f docker-compose-$service.yml";
+# SERVICES=""
 
-done
-SERVICES="${DOCKER_COMPOSE_CMD} --project-directory ${SCRIPT_DIR} ${SERVICES} $*"
+# for service in "${DEVC_SERVICES[@]}"; do
+#   SERVICES+="$SERVICE -f docker-compose-$service.yml";
 
-echo "Will run:"
-echo "  ${SERVICES}"
-echo "from $SCRIPT_DIR"
-(
-    cd $SCRIPT_DIR
-    `${SERVICES}`
-)
+# done
+# SERVICES="${DOCKER_COMPOSE_CMD} --project-directory ${SCRIPT_DIR} ${SERVICES} $*"
+
+# echo "Will run:"
+# echo "  ${SERVICES}"
+# echo "from $SCRIPT_DIR"
+# (
+#     cd $SCRIPT_DIR
+#     `${SERVICES}`
+# )
+
+cd ${SCRIPT_DIR} && ${DOCKER_COMPOSE_CMD} --project-directory ${SCRIPT_DIR} --env-file ${SCRIPT_DIR}/.env -f ${SCRIPT_DIR}/docker-compose-local.yml $*
