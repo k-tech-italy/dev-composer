@@ -1,6 +1,6 @@
 services:
   postgis:
-    image: postgis/postgis:${PGIS_VERSION}
+    image: ${PGIS_IMAGE:-postgis/postgis:18-master}
     command: -c 'max_connections=${PGIS_MAX_CONNECTIONS:-100}'
     ports:
       - "${PGIS_PORT}:5432"
