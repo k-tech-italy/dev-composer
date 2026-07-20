@@ -5,6 +5,6 @@ services:
     ports:
       - "${PGIS_PORT}:5432"
     volumes:
-      - "${PGIS_ROOT_DATA_DIR}${PGIS_VERSION}:/var/lib/postgresql"
+      - "${PGIS_ROOT_DATA_DIR}${PGIS_VERSION:-}:/var/lib/postgresql"
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
