@@ -13,4 +13,4 @@ SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 DOCKER_COMPOSE_CMD=$(grep "^DOCKER_COMPOSE_CMD"  ${SCRIPT_DIR}/.env | cut -d = -f 2)
 
-cd ${SCRIPT_DIR} && ${DOCKER_COMPOSE_CMD} --project-directory ${SCRIPT_DIR} --env-file ${SCRIPT_DIR}/.env -f ${SCRIPT_DIR}/docker-compose-local.yml $*
+cd ${SCRIPT_DIR} && ${DOCKER_COMPOSE_CMD} --project-directory ${SCRIPT_DIR} --env-file ${SCRIPT_DIR}/.env -f ${SCRIPT_DIR}/docker-compose-local.yml "$@"

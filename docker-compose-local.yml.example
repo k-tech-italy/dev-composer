@@ -2,7 +2,7 @@ include:
   - services/postgres.yml
   - services/postgis.yml
   - services/redis.yml
-  - services/sentry.yml
+  - services/glitchtip.yml
   - services/mailhog.yml
   - services/pgvector-anon.yml
   - services/ollamaui-cuda.yml
