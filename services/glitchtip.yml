@@ -1,13 +1,13 @@
 # https://glitchtip.com/documentation/install
 services:
   glitchtip:
-    image: glitchtip/glitchtip:${GLITCHTIP_VERSION:-6}
+    image: glitchtip/glitchtip:${GLITCHTIP_VERSION:-7}
     ports:
-      - "${GLITCHTIP_PORT:-8001}:8000"
+      - "${GLITCHTIP_PORT:-18080}:8000"
     environment:
       DATABASE_URL: ${GLITCHTIP_DATABASE_URL:-postgres://postgres:${POSTGRES_PASSWORD}@postgres:5432/glitchtip}
-      VALKEY_URL: ""
-      SECRET_KEY: ${GLITCHTIP_SECRET_KEY:?Set GLITCHTIP_SECRET_KEY in .env}
+      VALKEY_URL: ${GLITCHTIP_VALKEY_URL:-""}
+      SECRET_KEY: ${GLITCHTIP_SECRET_KEY:-some.password.9843}
       EMAIL_URL: ${GLITCHTIP_EMAIL_URL:-consolemail://}
       DEFAULT_FROM_EMAIL: ${GLITCHTIP_DEFAULT_FROM_EMAIL:-glitchtip@localhost}
       GLITCHTIP_DOMAIN: ${GLITCHTIP_DOMAIN:-http://localhost:8001}
